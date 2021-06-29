@@ -8,7 +8,6 @@ module.exports = (app) => {
 		{
 			deptId: {
 				type: DataTypes.BIGINT,
-				allowNull: false,
 				primaryKey: true,
 				field: "dept_id",
 			},

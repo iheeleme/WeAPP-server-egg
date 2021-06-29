@@ -35,6 +35,9 @@ module.exports = (app) => {
 	// deptManage
 	router.resources('deptList', '/deptManagement/getList',jwt, controller.system.dept);
 	router.resources('deptDoDelete', '/deptManagement/doDelete',jwt, controller.system.dept);
+	router.resources('deptDoEdit', '/deptManagement/doEdit',jwt, controller.system.dept);
+	router.resources('deptDoAdd', '/deptManagement/doAdd',jwt, controller.system.dept);
+
 	// router.post("/deptManagement/getList", jwt, controller.system.deptList);
 	// router.post("/deptManagement/doDelete", jwt, controller.system.deptDoDelete);
 

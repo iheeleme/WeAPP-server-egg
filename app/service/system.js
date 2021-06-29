@@ -242,6 +242,66 @@ class SystemService extends Service {
 			data: data,
 		};
 	}
+	// 部门新增 doAdd
+	async deptDoAdd(query) {
+		const data = await this.ctx.model.Dept.create(query);
+		if (data) {
+			return {
+				code: 200,
+				msg: "success",
+				// data: data,
+			};
+		} else {
+			return {
+				code: 301,
+				msg: "error",
+				// data: data,
+			};
+		}
+	}
+	// 部门删除 doDelete
+	async deptDoDelete(query) {
+		const data = await this.ctx.model.Dept.destroy({
+			where:{
+				deptId:query
+			}
+		});
+		if (data) {
+			return {
+				code: 200,
+				msg: "success",
+				// data: data,
+			};
+		} else {
+			return {
+				code: 301,
+				msg: "error",
+				// data: data,
+			};
+		}
+	}
+	// 部门修改 doEdit
+	async deptDoEdit(query) {
+		const data = await this.ctx.model.Dept.update(query, {
+			where: {
+				deptId: query.deptId,
+			},
+		});
+
+		if (data) {
+			return {
+				code: 200,
+				msg: "success",
+				// data: data,
+			};
+		} else {
+			return {
+				code: 301,
+				msg: "error",
+				// data: data,
+			};
+		}
+	}
 	/************  部门end ***************/
 
 	async userList() {
