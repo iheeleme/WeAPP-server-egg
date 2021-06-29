@@ -37,7 +37,7 @@ class SystemService extends Service {
 	}
 	/************ 字典start **************/
 	async getDicts(type) {
-		const result = await this.ctx.model.SysDictData.findOne({
+		const result = await this.ctx.model.SysDictData.findAll({
 			where: { dictType: type },
 		});
 		// console.log(rows)
