@@ -31,3 +31,9 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+
+### Sequelize-auto
+```bash
+sequelize-auto -o "./app/model" -d test -h localhost -u ruoyi -p 3306 -x ruoyi -t sys_dept -e mysql 
+```

@@ -35,16 +35,9 @@ class SystemService extends Service {
 			data: data,
 		};
 	}
-	// 角色列表
-	async roleList() {
-		if (true) {
-			return {
-				code: 200,
-				msg: "success",
-				data: await this.ctx.model.Role.findAll(),
-			};
-		}
-	}
+
+	/************  公告start ***************/
+
 	// 公告列表
 	async noticeList(query) {
 		const { count, rows } = await this.ctx.model.Notice.findAndCountAll({
@@ -61,8 +54,8 @@ class SystemService extends Service {
 				],
 			],
 
-			offset: query.pageNo - 1,
-			limit: query.pageSize,
+			offset: Number(query.pageNo) - 1,
+			limit: Number(query.pageSize),
 		});
 		// console.log(rows)
 		// result = JSON.parse(JSON.stringify(rows));
@@ -73,6 +66,7 @@ class SystemService extends Service {
 			totalCount: count,
 		};
 	}
+
 	// 公告编辑
 	async noticeDoEdit(query) {
 		let result;
@@ -98,14 +92,12 @@ class SystemService extends Service {
 		}
 	}
 	// 公告删除
-	async noticeDoDelete(query) {
+	async noticeDoDelete(id) {
 		let result;
-		if (query.ids) {
-			let ids = query.ids.split(',');
-			console.log(ids);
+		if (id) {
 			result = await this.ctx.model.Notice.destroy({
 				where: {
-					noticeId: ids,
+					noticeId: id,
 				},
 			});
 		} else {
@@ -123,6 +115,10 @@ class SystemService extends Service {
 			};
 		}
 	}
+
+	/************  公告end ***************/
+
+	/************  菜单start ***************/
 
 	// 菜单列表
 	async menuList() {
@@ -150,44 +146,7 @@ class SystemService extends Service {
 			data: menus,
 		};
 	}
-	// 获取菜单
-	async getMenus(roleIds, isAdmin) {
-		return await this.ctx.model.Menu.findAll();
-
-		return await this.app.mysql.query(`
-            SELECT
-                a.*
-            FROM
-                sys_menu a JOIN sys_role_menu b on a.menu_id = b.menu_id AND b.role_id
-            GROUP BY a.menu_id
-            ORDER BY
-            order_num ASC`);
-	}
-	// 删除角色
-	async menuDoDelete(data) {
-		const result = await this.ctx.model.Menu.destroy({
-			where: {
-				menuId: data.ids,
-			},
-		});
-
-		if (result) {
-			return {
-				code: 200,
-				msg: "删除成功",
-			};
-		}
-	}
-	async menuDoAdd(data) {
-		const result = await this.ctx.model.Menu.create(data);
-		console.log(result);
-		if (result) {
-			return {
-				code: 200,
-				msg: "添加成功",
-			};
-		}
-	}
+	// 菜单删除
 	async menuDoEdit(data) {
 		console.log(data);
 		// const result= await this.app.mysql.delete('sys_menu',{
@@ -201,6 +160,76 @@ class SystemService extends Service {
 		// 	}
 		// }
 	}
+
+	async menuDoAdd(data) {
+		const result = await this.ctx.model.Menu.create(data);
+		console.log(result);
+		if (result) {
+			return {
+				code: 200,
+				msg: "添加成功",
+			};
+		}
+	}
+
+	// 获取菜单
+	async getMenus(roleIds, isAdmin) {
+		return await this.ctx.model.Menu.findAll();
+
+		return await this.app.mysql.query(`
+            SELECT
+                a.*
+            FROM
+                sys_menu a JOIN sys_role_menu b on a.menu_id = b.menu_id AND b.role_id
+            GROUP BY a.menu_id
+            ORDER BY
+            order_num ASC`);
+	}
+
+	/************  菜单end ***************/
+
+	/************  角色start ***************/
+
+	// 删除角色
+	async menuDoDelete(ids) {
+		const result = await this.ctx.model.Menu.destroy({
+			where: {
+				menuId: ids,
+			},
+		});
+
+		if (result) {
+			return {
+				code: 200,
+				msg: "删除成功",
+			};
+		}
+	}
+	// 角色列表
+	async roleList() {
+		if (true) {
+			return {
+				code: 200,
+				msg: "success",
+				data: await this.ctx.model.Role.findAll(),
+			};
+		}
+	}
+
+	/************  角色end ***************/
+
+	/************  部门start ***************/
+	// 部门列表
+	async deptList(query) {
+		const  data  = await this.ctx.model.Dept.findAll();
+		return {
+			code: 200,
+			msg: "success",
+			data: data,
+		};
+	}
+	/************  部门end ***************/
+
 	async userList() {
 		const result = await this.ctx.model.User.findAll();
 		return {
