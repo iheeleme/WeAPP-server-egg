@@ -4,51 +4,54 @@ module.exports = (app) => {
 	const DataTypes = app.Sequelize;
 
 	const Model = app.model.define(
-		"sys_role",
+		"sys_dict_data",
 		{
-			roleId: {
+			dictCode: {
 				type: DataTypes.BIGINT,
-				allowNull: false,
 				primaryKey: true,
-				field: "role_id",
+				field: "dict_code",
 			},
-			roleName: {
-				type: DataTypes.STRING(30),
-				allowNull: false,
-				field: "role_name",
-			},
-			roleKey: {
-				type: DataTypes.STRING(100),
-				allowNull: false,
-				field: "role_key",
-			},
-			roleSort: {
+			dictSort: {
 				type: DataTypes.INTEGER,
-				allowNull: false,
-				field: "role_sort",
+				allowNull: true,
+				defaultValue: "0",
+				field: "dict_sort",
 			},
-			dataScope: {
+			dictLabel: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+				defaultValue: "",
+				field: "dict_label",
+			},
+			dictValue: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+				defaultValue: "",
+				field: "dict_value",
+			},
+			dictType: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+				defaultValue: "",
+				field: "dict_type",
+			},
+			cssClass: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+				field: "css_class",
+			},
+			listClass: {
+				type: DataTypes.STRING(100),
+				allowNull: true,
+				field: "list_class",
+			},
+			isDefault: {
 				type: DataTypes.CHAR(1),
 				allowNull: true,
-				defaultValue: "1",
-				field: "data_scope",
-			},
-			menuCheckStrictly: {
-				type: DataTypes.INTEGER(1),
-				allowNull: true,
-				defaultValue: "1",
-				field: "menu_check_strictly",
-			},
-			dept_check_strictly: {
-				type: DataTypes.INTEGER(1),
-				allowNull: true,
-				defaultValue: "1",
+				defaultValue: "N",
+				field: "is_default",
 			},
 			status: {
-				type: DataTypes.CHAR(1),
-				allowNull: false,
-			},
-			del_flag: {
 				type: DataTypes.CHAR(1),
 				allowNull: true,
 				defaultValue: "0",
@@ -83,7 +86,7 @@ module.exports = (app) => {
 			timestamps: true,
 			createdAt: "createTime",
 			updatedAt: "updateTime",
-			tableName: "sys_role",
+			tableName: "sys_dict_data",
 		}
 	);
 

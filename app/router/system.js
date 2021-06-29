@@ -31,10 +31,13 @@ module.exports = (app) => {
 	// router.post("/noticeManagement/getList", jwt, controller.system.noticeList);
 	// router.post("/noticeManagement/doEdit", jwt, controller.system.noticeDoEdit);
 	// router.post("/noticeManagement/doDelete", jwt, controller.system.noticeDoDelete);
-	
+
 	// deptManage
 	router.resources('deptList', '/deptManagement/getList',jwt, controller.system.dept);
 	router.resources('deptDoDelete', '/deptManagement/doDelete',jwt, controller.system.dept);
 	// router.post("/deptManagement/getList", jwt, controller.system.deptList);
 	// router.post("/deptManagement/doDelete", jwt, controller.system.deptDoDelete);
+
+	// dict
+	router.resources('dictType','/system/dict/type',jwt,controller.system.dict)
 };

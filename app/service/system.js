@@ -35,6 +35,20 @@ class SystemService extends Service {
 			data: data,
 		};
 	}
+	/************ 字典start **************/
+	async getDicts(type) {
+		const result = await this.ctx.model.SysDictData.findOne({
+			where: { dictType: type },
+		});
+		// console.log(rows)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: "success",
+			data: result,
+		};
+	}
+	/************ 字典end **************/
 
 	/************  公告start ***************/
 
@@ -221,7 +235,7 @@ class SystemService extends Service {
 	/************  部门start ***************/
 	// 部门列表
 	async deptList(query) {
-		const  data  = await this.ctx.model.Dept.findAll();
+		const data = await this.ctx.model.Dept.findAll();
 		return {
 			code: 200,
 			msg: "success",
