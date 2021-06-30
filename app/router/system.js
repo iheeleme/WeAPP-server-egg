@@ -21,6 +21,10 @@ module.exports = (app) => {
 	// user
 	// router.post("/userManagement/getList", jwt, controller.system.userList);
 	router.resources('userList', '/userManagement/getList',jwt, controller.system.user);
+	router.resources('userDoDelete', '/userManagement/doDelete',jwt, controller.system.user);
+	router.resources('userDoEdit', '/userManagement/doEdit',jwt, controller.system.user);
+	router.resources('userDoAdd', '/userManagement/doAdd',jwt, controller.system.user);
+
 
 	router.get("/getRouters", jwt, controller.system.getRouters);
 	router.post("/icon/getList", jwt, controller.system.iconList);

@@ -107,11 +107,12 @@ class SystemService extends Service {
 	}
 	// 公告删除
 	async noticeDoDelete(id) {
+		let ids =id.split(",")
 		let result;
 		if (id) {
 			result = await this.ctx.model.Notice.destroy({
 				where: {
-					noticeId: id,
+					noticeId: ids,
 				},
 			});
 		} else {
@@ -175,7 +176,8 @@ class SystemService extends Service {
 		};
 	}
 	// 菜单删除
-	async menuDoDelete(ids) {
+	async menuDoDelete(id) {
+		let ids =id.split(",")
 		const result = await this.ctx.model.Menu.destroy({
 			where: {
 				menuId: ids,
@@ -266,9 +268,10 @@ class SystemService extends Service {
 	}
 	// 部门删除 doDelete
 	async deptDoDelete(query) {
+		let ids = query.split(",");
 		const data = await this.ctx.model.Dept.destroy({
 			where: {
-				deptId: query,
+				deptId: ids,
 			},
 		});
 		if (data) {
@@ -309,6 +312,7 @@ class SystemService extends Service {
 	}
 	/************  部门end ***************/
 
+	/************  用户start ***************/
 	async userList() {
 		const result = await this.ctx.model.User.findAll();
 		return {
@@ -317,6 +321,40 @@ class SystemService extends Service {
 			data: result,
 		};
 	}
+	async userDoEdit(data) {
+		const result = await this.ctx.model.User.update(data, {
+			where: {
+				userId: data.userId,
+			},
+		});
+		return {
+			code: 200,
+			msg: "success",
+			data: result,
+		};
+	}
+	async userDoAdd(data) {
+		const result = await this.ctx.model.User.create(data);
+		return {
+			code: 200,
+			msg: "success",
+			data: result,
+		};
+	}
+	async userDoDelete(id) {
+		let ids = id.split(",");
+		const result = await this.ctx.model.User.destroy({
+			where: {
+				userId: ids,
+			},
+		});
+		return {
+			code: 200,
+			msg: "success",
+			data: result,
+		};
+	}
+	/************  用户end ***************/
 }
 
 module.exports = SystemService;
