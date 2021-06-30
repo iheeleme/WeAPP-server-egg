@@ -133,6 +133,20 @@ class SystemService extends Service {
 	/************  公告end ***************/
 
 	/************  菜单start ***************/
+	// 菜单查询
+	async getMenu(id) {
+		const result = await this.ctx.model.Menu.findAll({
+			where: {
+				menuId: id,
+			},
+		});
+
+		return {
+			code: 200,
+			msg: "success",
+			data: result,
+		};
+	}
 
 	// 菜单列表
 	async menuList() {
@@ -161,18 +175,33 @@ class SystemService extends Service {
 		};
 	}
 	// 菜单删除
+	async menuDoDelete(ids) {
+		const result = await this.ctx.model.Menu.destroy({
+			where: {
+				menuId: ids,
+			},
+		});
+
+		if (result) {
+			return {
+				code: 200,
+				msg: "删除成功",
+			};
+		}
+	}
+	// 菜单修改
 	async menuDoEdit(data) {
-		console.log(data);
-		// const result= await this.app.mysql.delete('sys_menu',{
-		// 	menu_id:data
-		// });
-		// const updateSuccess = result.affectedRows === 1;
-		// if(updateSuccess){
-		// 	return{
-		// 		code:200,
-		// 		msg:'修改成功'
-		// 	}
-		// }
+		const result = await this.ctx.model.Menu.update(data, {
+			where: {
+				menuId: data.menuId,
+			},
+		});
+		if (result) {
+			return {
+				code: 200,
+				msg: "修改成功",
+			};
+		}
 	}
 
 	async menuDoAdd(data) {
@@ -189,36 +218,12 @@ class SystemService extends Service {
 	// 获取菜单
 	async getMenus(roleIds, isAdmin) {
 		return await this.ctx.model.Menu.findAll();
-
-		return await this.app.mysql.query(`
-            SELECT
-                a.*
-            FROM
-                sys_menu a JOIN sys_role_menu b on a.menu_id = b.menu_id AND b.role_id
-            GROUP BY a.menu_id
-            ORDER BY
-            order_num ASC`);
 	}
 
 	/************  菜单end ***************/
 
 	/************  角色start ***************/
 
-	// 删除角色
-	async menuDoDelete(ids) {
-		const result = await this.ctx.model.Menu.destroy({
-			where: {
-				menuId: ids,
-			},
-		});
-
-		if (result) {
-			return {
-				code: 200,
-				msg: "删除成功",
-			};
-		}
-	}
 	// 角色列表
 	async roleList() {
 		if (true) {
@@ -262,9 +267,9 @@ class SystemService extends Service {
 	// 部门删除 doDelete
 	async deptDoDelete(query) {
 		const data = await this.ctx.model.Dept.destroy({
-			where:{
-				deptId:query
-			}
+			where: {
+				deptId: query,
+			},
 		});
 		if (data) {
 			return {

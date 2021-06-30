@@ -9,6 +9,7 @@ module.exports = (app) => {
 
 	// menu
 	router.resources('menuList', '/menuManagement/getList',jwt, controller.system.menu);
+	router.resources('getMenu', '/menuManagement/getMenu',jwt, controller.system.menu);
 	router.resources('menuDoDelete', '/menuManagement/doDelete',jwt, controller.system.menu);
 	router.resources('menuDoEdit', '/menuManagement/doEdit',jwt, controller.system.menu);
 	router.resources('menuDoAdd', '/menuManagement/doAdd',jwt, controller.system.menu);

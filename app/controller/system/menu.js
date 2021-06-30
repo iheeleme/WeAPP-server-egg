@@ -5,6 +5,14 @@ const Controller = require("egg").Controller;
 class SystemController extends Controller {
 	/************  菜单start ***************/
 
+    // 菜单查询
+	async show() {
+		const { ctx, app } = this;
+        const id =this.ctx.params.id
+		const respone = await ctx.service.system.getMenu(id);
+		ctx.body = respone;
+	}
+
 	// 菜单列表
 	async index() {
 		const { ctx, app } = this;

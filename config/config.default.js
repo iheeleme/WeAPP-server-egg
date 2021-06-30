@@ -25,7 +25,7 @@ module.exports = (appInfo) => {
 	config.jwt = {
 		//jwt配置项
 		secret: "123",
-    // ignore: [ '/publicKey', '/public/' ], // 哪些请求不需要认证
+		// ignore: [ '/publicKey', '/public/' ], // 哪些请求不需要认证
 	};
 
 	config.security = {
@@ -95,8 +95,17 @@ module.exports = (appInfo) => {
 			db: 0,
 		},
 	};
-  // exports.middleware = ['auth'];
-  config.routerAuth = ['/login']
+	// config/config.default.js
+	config.errorHandler = {
+		// 加载 errorHandler 中间件
+		middleware: ["errorHandler"],
+		// 只对 /api 前缀的 url 路径生效
+		errorHandler: {
+			match: "/",
+		},
+	};
+	// exports.middleware = ['auth'];
+	config.routerAuth = ["/login"];
 	return {
 		...config,
 		...userConfig,

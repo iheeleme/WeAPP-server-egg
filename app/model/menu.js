@@ -21,14 +21,22 @@ module.exports = (app) => {
 			create_by: STRING(60),
 			update_by: STRING(60),
 			remark: STRING(500),
-			createTime: { type: DATE, field: "create_time" },
-			updateTime: { type: DATE, field: "update_time" },
+			createTime: {
+				type: DATE,
+				allowNull: true,
+				field: "create_time",
+			},
+			updateTime: {
+				type: DATE,
+				allowNull: true,
+				field: "update_time",
+			},
 		},
 		{
-           	// 不要忘记启用时间戳！
+			// 不要忘记启用时间戳！
 			timestamps: true,
-			createdAt: "create_time",
-			updatedAt: "update_time",
+			createdAt: "createTime",
+			updatedAt: "updateTime",
 			freezeTableName: true,
 		}
 	);
