@@ -30,6 +30,15 @@ class UserController extends Controller {
 		const respone = await ctx.service.system.userDoAdd(data);
 		ctx.body = respone;
 	}
+
+         // 重置密码
+	async edit() {
+		const { ctx, app } = this;
+        const data = this.ctx.query
+        const id =this.ctx.params.id
+		const respone = await ctx.service.system.resetUserPwd(id,data);
+		ctx.body = respone;
+	}
 }
 
 module.exports = UserController;

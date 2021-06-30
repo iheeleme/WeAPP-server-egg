@@ -107,7 +107,7 @@ class SystemService extends Service {
 	}
 	// 公告删除
 	async noticeDoDelete(id) {
-		let ids =id.split(",")
+		let ids = id.split(",");
 		let result;
 		if (id) {
 			result = await this.ctx.model.Notice.destroy({
@@ -177,7 +177,7 @@ class SystemService extends Service {
 	}
 	// 菜单删除
 	async menuDoDelete(id) {
-		let ids =id.split(",")
+		let ids = id.split(",");
 		const result = await this.ctx.model.Menu.destroy({
 			where: {
 				menuId: ids,
@@ -352,6 +352,20 @@ class SystemService extends Service {
 			code: 200,
 			msg: "success",
 			data: result,
+		};
+	}
+	async resetUserPwd(userId, data) {
+		const result = await this.ctx.model.User.update(
+			{ password: data.newPass },
+			{
+				where: {
+					userId: userId,
+				},
+			}
+		);
+		return {
+			code: 200,
+			msg: "success",
 		};
 	}
 	/************  用户end ***************/

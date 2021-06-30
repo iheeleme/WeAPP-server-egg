@@ -24,6 +24,8 @@ module.exports = (app) => {
 	router.resources('userDoDelete', '/userManagement/doDelete',jwt, controller.system.user);
 	router.resources('userDoEdit', '/userManagement/doEdit',jwt, controller.system.user);
 	router.resources('userDoAdd', '/userManagement/doAdd',jwt, controller.system.user);
+	router.resources('resetUserPwd', '/userManagement/reset/',jwt, controller.system.user);
+
 
 
 	router.get("/getRouters", jwt, controller.system.getRouters);
