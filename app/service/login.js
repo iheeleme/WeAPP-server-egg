@@ -25,7 +25,8 @@ class LoginService extends Service {
                 userName:user
             }
         })
-        await this.ctx.service.cache.set(app.jwt.verify(token, this.config.jwt.secret).token_id,result,app.jwt.verify(token, this.config.jwt.secret).exp);
+        const unTime =app.jwt.verify(token, this.config.jwt.secret).exp-app.jwt.verify(token, this.config.jwt.secret).iat
+        await this.ctx.service.cache.set(app.jwt.verify(token, this.config.jwt.secret).token_id,result,unTime);
     }
 }
 

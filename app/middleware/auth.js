@@ -7,7 +7,11 @@ module.exports = (options) => {
 				const token_id = ctx.app.jwt.verify(token, options.secret).token_id;
 				let t = await ctx.service.cache.get(token_id);
 				if (!t) {
-					ctx.throw(401, "Token 令牌不合法!");
+					ctx.status = 401;
+					ctx.body = {
+						message: "Token 令牌不合法!",
+					};
+					return;
 				} else {
 					ctx.authUser = t;
 					await next();
