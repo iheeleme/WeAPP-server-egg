@@ -16,7 +16,7 @@ module.exports = (appInfo) => {
 	config.keys = appInfo.name + "_1622471759745_5963";
 
 	// add your middleware config here
-	config.middleware = [];
+	config.middleware = ['logOper'];
 
 	// add your user config here
 	const userConfig = {
@@ -101,7 +101,7 @@ module.exports = (appInfo) => {
 		middleware: ["errorHandler"],
 		// 只对 /api 前缀的 url 路径生效
 		errorHandler: {
-			match: "/",
+			match: "/api",
 		},
 	};
 	// exports.middleware = ['auth'];
