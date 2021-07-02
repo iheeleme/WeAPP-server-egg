@@ -50,4 +50,8 @@ module.exports = (app) => {
 
 	// dict
 	router.resources('dictType','/api/system/dict/type',jwt,controller.system.dict)
+
+
+	// log 
+	router.resources('operList','/api/logManagement/operList',jwt,controller.system.operlog)
 };

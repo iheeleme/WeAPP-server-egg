@@ -95,6 +95,8 @@ module.exports = (appInfo) => {
 			db: 0,
 		},
 	};
+
+	config.proxy = true;
 	// config/config.default.js
 	config.errorHandler = {
 		// 加载 errorHandler 中间件

@@ -35,6 +35,30 @@ class SystemService extends Service {
 			data: data,
 		};
 	}
+	/************ 日志start **************/
+	async operList(query) {
+		if (!query.title) {
+			query.title = "%";
+		}
+		const result = await this.ctx.model.SysOperLog.findAndCountAll({
+			where: {
+				title: {
+					[Op.like]: query.title,
+				},
+			},
+			offset:(Number(query.pageNo) - 1) * Number(query.pageSize),
+			limit: Number(query.pageSize),
+		});
+		return {
+			code: 200,
+			msg: "success",
+			data: result.rows,
+			totalCount: result.count,
+		};
+	}
+
+	/************ 日志end **************/
+
 	/************ 字典start **************/
 	async getDicts(type) {
 		const result = await this.ctx.model.SysDictData.findAll({
@@ -68,7 +92,7 @@ class SystemService extends Service {
 				],
 			],
 
-			offset: Number(query.pageNo) - 1,
+			offset: (Number(query.pageNo) - 1) * Number(query.pageSize),
 			limit: Number(query.pageSize),
 		});
 		// console.log(rows)
