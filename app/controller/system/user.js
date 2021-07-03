@@ -15,6 +15,7 @@ class UserController extends Controller {
 		const { ctx, app } = this;
 		const data = ctx.request.body;
 		const respone = await ctx.service.system.userDoEdit(data);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	// 用户删除
@@ -22,6 +23,7 @@ class UserController extends Controller {
 		const { ctx, app } = this;
 		const id = this.ctx.params.id;
 		const respone = await ctx.service.system.userDoDelete(id);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	// 用户创建
@@ -29,6 +31,7 @@ class UserController extends Controller {
 		const { ctx, app } = this;
 		const data = ctx.request.body;
 		const respone = await ctx.service.system.userDoAdd(data);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 
@@ -38,6 +41,7 @@ class UserController extends Controller {
 		const data = this.ctx.query;
 		const id = this.ctx.params.id;
 		const respone = await ctx.service.system.resetUserPwd(id, data);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 }

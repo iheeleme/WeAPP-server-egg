@@ -10,7 +10,7 @@ class LoginService extends Service {
 			},
 			attributes: ["password"],
 		});
-        console.log(result[0].password)
+        // console.log(result[0].password)
         if(data.password===result[0].password){
             return true
         }else{

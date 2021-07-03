@@ -17,6 +17,7 @@
     "egg-sequelize-auto": "^0.1.1",
     "ipip-ipdb": "^0.6.0",
     "mysql2": "^2.2.5",
+    "ua-parser-js": "^0.7.28",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

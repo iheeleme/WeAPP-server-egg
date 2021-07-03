@@ -6,7 +6,7 @@ module.exports = {
 		return uuidv4()
 	},
 	getIpAddr(ip) {
-		try {console.log(this.ctx.app.baseDir)
+		try {
 			const bst = new ipdb.BaseStation(`${this.ctx.app.baseDir}/app/public/ipipfree.ipdb`)
 			const result = bst.findInfo(ip, 'CN')
 			const addArr = []

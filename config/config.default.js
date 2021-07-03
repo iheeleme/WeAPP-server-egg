@@ -16,7 +16,7 @@ module.exports = (appInfo) => {
 	config.keys = appInfo.name + "_1622471759745_5963";
 
 	// add your middleware config here
-	config.middleware = ['logOper'];
+	config.middleware = ['logOper','logininfor'];
 
 	// add your user config here
 	const userConfig = {

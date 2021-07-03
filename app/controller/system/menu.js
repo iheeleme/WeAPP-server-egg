@@ -10,6 +10,7 @@ class SystemController extends Controller {
 		const { ctx, app } = this;
         const id =this.ctx.params.id
 		const respone = await ctx.service.system.getMenu(id);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 
@@ -17,6 +18,7 @@ class SystemController extends Controller {
 	async index() {
 		const { ctx, app } = this;
 		const respone = await ctx.service.system.menuList();
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	// 菜单删除
@@ -24,6 +26,7 @@ class SystemController extends Controller {
 		const { ctx, app } = this;
         const ids = this.ctx.params.id;
 		const respone = await ctx.service.system.menuDoDelete(ids);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	// 菜单新增
@@ -31,6 +34,7 @@ class SystemController extends Controller {
 		const { ctx, app } = this;
 		const data = ctx.request.body;
 		const respone = await ctx.service.system.menuDoAdd(data);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	// 菜单修改
@@ -38,6 +42,7 @@ class SystemController extends Controller {
 		const { ctx, app } = this;
 		const data = ctx.request.body;
 		const respone = await ctx.service.system.menuDoEdit(data);
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 

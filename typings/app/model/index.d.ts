@@ -8,6 +8,7 @@ import ExportNotice = require('../../../app/model/notice');
 import ExportRole = require('../../../app/model/role');
 import ExportSysDictData = require('../../../app/model/sys_dict_data');
 import ExportSysDictType = require('../../../app/model/sys_dict_type');
+import ExportSysLogininfor = require('../../../app/model/sys_logininfor');
 import ExportSysOperLog = require('../../../app/model/sys_oper_log');
 import ExportUser = require('../../../app/model/user');
 
@@ -19,6 +20,7 @@ declare module 'egg' {
     Role: ReturnType<typeof ExportRole>;
     SysDictData: ReturnType<typeof ExportSysDictData>;
     SysDictType: ReturnType<typeof ExportSysDictType>;
+    SysLogininfor: ReturnType<typeof ExportSysLogininfor>;
     SysOperLog: ReturnType<typeof ExportSysOperLog>;
     User: ReturnType<typeof ExportUser>;
   }

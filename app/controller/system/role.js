@@ -17,6 +17,7 @@ class SystemController extends Controller {
 	async index() {
 		const { ctx, app } = this;
 		const respone = await ctx.service.system.roleList();
+        global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
 	/************  角色end ***************/

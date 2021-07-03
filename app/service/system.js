@@ -1,60 +1,92 @@
-"use strict";
-const Service = require("egg").Service;
-const _ = require("lodash");
-const Op = require("sequelize").Op;
-const sequelize = require("sequelize");
+'use strict'
+const Service = require('egg').Service
+const _ = require('lodash')
+const Op = require('sequelize').Op
+const sequelize = require('sequelize')
 class SystemService extends Service {
 	// 获取路由
 	async getRouters() {
-		let result = "";
+		let result = ''
 		if (true) {
 			result = await this.ctx.model.Menu.findAll({
-				attributes: [
-					"menuName",
-					"menuType",
-					"menuId",
-					"parentId",
-					"path",
-					"component",
-					"icon",
-				],
+				attributes: ['menuName', 'menuType', 'menuId', 'parentId', 'path', 'component', 'icon'],
 				where: {
 					menuType: {
-						[Op.ne]: "F",
-					},
-				},
-			});
+						[Op.ne]: 'F'
+					}
+				}
+			})
 		} else {
-			result = await this.ctx.model.Menu.findAll();
+			result = await this.ctx.model.Menu.findAll()
 		}
-		result = JSON.parse(JSON.stringify(result));
-		let data = menuFn(0, result);
+		result = JSON.parse(JSON.stringify(result))
+		let data = menuFn(0, result)
 		return {
 			code: 200,
-			msg: "success",
-			data: data,
-		};
+			msg: 'success',
+			data: data
+		}
 	}
 	/************ 日志start **************/
 	async operList(query) {
 		if (!query.title) {
-			query.title = "%";
+			query.title = '%'
 		}
 		const result = await this.ctx.model.SysOperLog.findAndCountAll({
 			where: {
 				title: {
-					[Op.like]: query.title,
-				},
+					[Op.like]: query.title
+				}
 			},
-			offset:(Number(query.pageNo) - 1) * Number(query.pageSize),
-			limit: Number(query.pageSize),
-		});
+			offset: (Number(query.pageNo) - 1) * Number(query.pageSize),
+			limit: Number(query.pageSize)
+		})
 		return {
 			code: 200,
-			msg: "success",
+			msg: 'success',
 			data: result.rows,
-			totalCount: result.count,
-		};
+			totalCount: result.count
+		}
+	}
+	async loginList(query) {
+		if (!query.ipaddr) {
+			query.ipaddr = '%'
+		}
+		if (!query.userName) {
+			query.userName = '%'
+		}
+		if (!query.status) {
+			query.status = '%'
+		}
+		const result = await this.ctx.model.SysLogininfor.findAndCountAll({
+			where: {
+				[Op.or]: [
+					{
+						ipaddr: {
+							[Op.like]: query.ipaddr
+						}
+					},
+					{
+						userName: {
+							[Op.like]: query.userName
+						}
+					},
+					{
+						status: {
+							[Op.like]: query.status
+						}
+					}
+				]
+			},
+			offset: (Number(query.pageNo) - 1) * Number(query.pageSize),
+			limit: Number(query.pageSize)
+		})
+		return {
+			code: 200,
+			msg: 'success',
+			data: result.rows,
+			totalCount: result.count
+		}
 	}
 
 	/************ 日志end **************/
@@ -62,15 +94,15 @@ class SystemService extends Service {
 	/************ 字典start **************/
 	async getDicts(type) {
 		const result = await this.ctx.model.SysDictData.findAll({
-			where: { dictType: type },
-		});
+			where: { dictType: type }
+		})
 		// console.log(rows)
 		// result = JSON.parse(JSON.stringify(rows));
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 	/************ 字典end **************/
 
@@ -80,78 +112,75 @@ class SystemService extends Service {
 	async noticeList(query) {
 		const { count, rows } = await this.ctx.model.Notice.findAndCountAll({
 			attributes: [
-				["notice_id", "noticeId"],
-				["notice_title", "noticeTitle"],
-				["notice_type", "noticeType"],
-				"status",
-				"create_time",
-				"create_by",
-				[
-					sequelize.cast(sequelize.col("notice_content"), "char"),
-					"noticeContent",
-				],
+				['notice_id', 'noticeId'],
+				['notice_title', 'noticeTitle'],
+				['notice_type', 'noticeType'],
+				'status',
+				'create_time',
+				'create_by',
+				[sequelize.cast(sequelize.col('notice_content'), 'char'), 'noticeContent']
 			],
 
 			offset: (Number(query.pageNo) - 1) * Number(query.pageSize),
-			limit: Number(query.pageSize),
-		});
+			limit: Number(query.pageSize)
+		})
 		// console.log(rows)
 		// result = JSON.parse(JSON.stringify(rows));
 		return {
 			code: 200,
-			msg: "success",
+			msg: 'success',
 			data: rows,
-			totalCount: count,
-		};
+			totalCount: count
+		}
 	}
 
 	// 公告编辑
 	async noticeDoEdit(query) {
-		let result;
+		let result
 		if (query.noticeId) {
 			result = await this.ctx.model.Notice.update(query, {
 				where: {
-					noticeId: query.noticeId,
-				},
-			});
+					noticeId: query.noticeId
+				}
+			})
 		} else {
-			result = await this.ctx.model.Notice.create(query);
+			result = await this.ctx.model.Notice.create(query)
 		}
 		if (result) {
 			return {
 				code: 200,
-				msg: "success",
-			};
+				msg: 'success'
+			}
 		} else {
 			return {
 				code: 300,
-				msg: "error",
-			};
+				msg: 'error'
+			}
 		}
 	}
 	// 公告删除
 	async noticeDoDelete(id) {
-		let ids = id.split(",");
-		let result;
+		let ids = id.split(',')
+		let result
 		if (id) {
 			result = await this.ctx.model.Notice.destroy({
 				where: {
-					noticeId: ids,
-				},
-			});
+					noticeId: ids
+				}
+			})
 		} else {
-			result = false;
+			result = false
 		}
 		if (result) {
 			return {
 				code: 200,
-				msg: "success",
-			};
+				msg: 'success'
+			}
 		} else {
 			return {
 				code: 300,
-				msg: "error",
-			};
+				msg: 'error'
+			}
 		}
 	}
 
@@ -162,15 +191,15 @@ class SystemService extends Service {
 	async getMenu(id) {
 		const result = await this.ctx.model.Menu.findAll({
 			where: {
-				menuId: id,
-			},
-		});
+				menuId: id
+			}
+		})
 
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 
 	// 菜单列表
@@ -179,71 +208,71 @@ class SystemService extends Service {
 			.getMenus
 			// this.ctx.admin.roleIds,
 			// this.ctx.admin.username === "admin"
-			();
+			()
 		if (!_.isEmpty()) {
-			menus.forEach((e) => {
-				const parentMenu = menus.filter((m) => {
-					e.parentId = parseInt(e.parentId);
+			menus.forEach(e => {
+				const parentMenu = menus.filter(m => {
+					e.parentId = parseInt(e.parentId)
 					if (e.parentId == m.id) {
-						return m.name;
+						return m.name
 					}
-				});
+				})
 				if (!_.isEmpty(parentMenu)) {
-					e.parentName = parentMenu[0].name;
+					e.parentName = parentMenu[0].name
 				}
-			});
+			})
 		}
 		return {
 			code: 200,
-			msg: "success",
-			data: menus,
-		};
+			msg: 'success',
+			data: menus
+		}
 	}
 	// 菜单删除
 	async menuDoDelete(id) {
-		let ids = id.split(",");
+		let ids = id.split(',')
 		const result = await this.ctx.model.Menu.destroy({
 			where: {
-				menuId: ids,
-			},
-		});
+				menuId: ids
+			}
+		})
 
 		if (result) {
 			return {
 				code: 200,
-				msg: "删除成功",
-			};
+				msg: '删除成功'
+			}
 		}
 	}
 	// 菜单修改
 	async menuDoEdit(data) {
 		const result = await this.ctx.model.Menu.update(data, {
 			where: {
-				menuId: data.menuId,
-			},
-		});
+				menuId: data.menuId
+			}
+		})
 		if (result) {
 			return {
 				code: 200,
-				msg: "修改成功",
-			};
+				msg: '修改成功'
+			}
 		}
 	}
 
 	async menuDoAdd(data) {
-		const result = await this.ctx.model.Menu.create(data);
-		console.log(result);
+		const result = await this.ctx.model.Menu.create(data)
+		console.log(result)
 		if (result) {
 			return {
 				code: 200,
-				msg: "添加成功",
-			};
+				msg: '添加成功'
+			}
 		}
 	}
 
 	// 获取菜单
 	async getMenus(roleIds, isAdmin) {
-		return await this.ctx.model.Menu.findAll();
+		return await this.ctx.model.Menu.findAll()
 	}
 
 	/************  菜单end ***************/
@@ -255,9 +284,9 @@ class SystemService extends Service {
 		if (true) {
 			return {
 				code: 200,
-				msg: "success",
-				data: await this.ctx.model.Role.findAll(),
-			};
+				msg: 'success',
+				data: await this.ctx.model.Role.findAll()
+			}
 		}
 	}
 
@@ -266,195 +295,195 @@ class SystemService extends Service {
 	/************  部门start ***************/
 	// 部门列表
 	async deptList(query) {
-		const data = await this.ctx.model.Dept.findAll();
+		const data = await this.ctx.model.Dept.findAll()
 		return {
 			code: 200,
-			msg: "success",
-			data: data,
-		};
+			msg: 'success',
+			data: data
+		}
 	}
 	// 部门新增 doAdd
 	async deptDoAdd(query) {
-		const data = await this.ctx.model.Dept.create(query);
+		const data = await this.ctx.model.Dept.create(query)
 		if (data) {
 			return {
 				code: 200,
-				msg: "success",
+				msg: 'success'
 				// data: data,
-			};
+			}
 		} else {
 			return {
 				code: 301,
-				msg: "error",
+				msg: 'error'
 				// data: data,
-			};
+			}
 		}
 	}
 	// 部门删除 doDelete
 	async deptDoDelete(query) {
-		let ids = query.split(",");
+		let ids = query.split(',')
 		const data = await this.ctx.model.Dept.destroy({
 			where: {
-				deptId: ids,
-			},
-		});
+				deptId: ids
+			}
+		})
 		if (data) {
 			return {
 				code: 200,
-				msg: "success",
+				msg: 'success'
 				// data: data,
-			};
+			}
 		} else {
 			return {
 				code: 301,
-				msg: "error",
+				msg: 'error'
 				// data: data,
-			};
+			}
 		}
 	}
 	// 部门修改 doEdit
 	async deptDoEdit(query) {
 		const data = await this.ctx.model.Dept.update(query, {
 			where: {
-				deptId: query.deptId,
-			},
-		});
+				deptId: query.deptId
+			}
+		})
 
 		if (data) {
 			return {
 				code: 200,
-				msg: "success",
+				msg: 'success'
 				// data: data,
-			};
+			}
 		} else {
 			return {
 				code: 301,
-				msg: "error",
+				msg: 'error'
 				// data: data,
-			};
+			}
 		}
 	}
 	/************  部门end ***************/
 
 	/************  用户start ***************/
 	async userList() {
-		const result = await this.ctx.model.User.findAll();
+		const result = await this.ctx.model.User.findAll()
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 	async userDoEdit(data) {
 		const result = await this.ctx.model.User.update(data, {
 			where: {
-				userId: data.userId,
-			},
-		});
+				userId: data.userId
+			}
+		})
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 	async userDoAdd(data) {
-		const result = await this.ctx.model.User.create(data);
+		const result = await this.ctx.model.User.create(data)
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 	async userDoDelete(id) {
-		let ids = id.split(",");
+		let ids = id.split(',')
 		const result = await this.ctx.model.User.destroy({
 			where: {
-				userId: ids,
-			},
-		});
+				userId: ids
+			}
+		})
 		return {
 			code: 200,
-			msg: "success",
-			data: result,
-		};
+			msg: 'success',
+			data: result
+		}
 	}
 	async resetUserPwd(userId, data) {
 		const result = await this.ctx.model.User.update(
 			{ password: data.newPass },
 			{
 				where: {
-					userId: userId,
-				},
+					userId: userId
+				}
 			}
-		);
+		)
 		return {
 			code: 200,
-			msg: "success",
-		};
+			msg: 'success'
+		}
 	}
 	/************  用户end ***************/
 }
 
-module.exports = SystemService;
+module.exports = SystemService
 function menuFn(id, data, key) {
-	var routers = [];
+	var routers = []
 	if (data.length > 0) {
-		data.forEach((elem) => {
+		data.forEach(elem => {
 			if (elem.parentId == id) {
 				if (hasChild(elem.menuId, data)) {
-					if (!elem["component"]) {
-						elem["component"] = "Layout";
+					if (!elem['component']) {
+						elem['component'] = 'Layout'
 					}
-					elem["hidden"] = false;
-					elem["redirect"] = "noRedirect";
-					elem["alwaysShow"] = true;
-					elem["name"] = getRoutersName(elem["path"]);
-					elem["meta"] = {
-						title: elem["menuName"],
-						icon: elem["icon"],
-					};
-					elem["children"] = parentAll(elem.menuId, data);
-					routers.push(elem);
+					elem['hidden'] = false
+					elem['redirect'] = 'noRedirect'
+					elem['alwaysShow'] = true
+					elem['name'] = getRoutersName(elem['path'])
+					elem['meta'] = {
+						title: elem['menuName'],
+						icon: elem['icon']
+					}
+					elem['children'] = parentAll(elem.menuId, data)
+					routers.push(elem)
 				}
 			}
-		});
+		})
 		// console.log(routers);
-		return routers;
+		return routers
 	}
 }
 // id菜单下所有子路由
 function parentAll(id, data) {
-	let arr = [];
+	let arr = []
 	if (data.length > 0) {
-		data.forEach((element) => {
+		data.forEach(element => {
 			if (element.parentId == id) {
-				if (!element["component"]) {
-					element["component"] = "Layout";
+				if (!element['component']) {
+					element['component'] = 'Layout'
 				}
-				element["name"] = getRoutersName(element["path"], element);
-				element["hidden"] = false;
-				element["meta"] = {
-					title: element["menuName"],
-					icon: element["icon"],
-				};
+				element['name'] = getRoutersName(element['path'], element)
+				element['hidden'] = false
+				element['meta'] = {
+					title: element['menuName'],
+					icon: element['icon']
+				}
 				if (hasChild(element.menuId, data)) {
-					element["alwaysShow"] = true;
-					element["children"] = parentAll(element.menuId, data);
+					element['alwaysShow'] = true
+					element['children'] = parentAll(element.menuId, data)
 				}
-				arr.push(element);
+				arr.push(element)
 			}
-		});
-		return arr;
+		})
+		return arr
 	}
 }
 // 是否含有子路由
 function hasChild(id, data) {
-	let is = false;
+	let is = false
 	if (data.length > 0) {
 		for (let i = 0; i < data.length; i++) {
 			if (data[i].parentId == id) {
-				is = true;
-				return is;
+				is = true
+				return is
 			}
 		}
 	}
@@ -462,6 +491,6 @@ function hasChild(id, data) {
 
 function getRoutersName(name, data) {
 	if (name) {
-		return name.replace(name[0], name[0].toUpperCase());
+		return name.replace(name[0], name[0].toUpperCase())
 	}
 }

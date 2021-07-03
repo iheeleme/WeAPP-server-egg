@@ -7,7 +7,6 @@ module.exports = () => {
 			const arr = ctx.request.url.split('/')
 			const ip = ctx.request.ip
 			const ipAddress = ctx.helper.getIpAddr(ip)
-			console.log(ipAddress)
 			const model = arr[2]
 			try {
 				global.log = {
@@ -25,16 +24,27 @@ module.exports = () => {
 					const { method, title } = global.log
 					let model = '',
 						type = ''
-					switch (title) {
-						case 'ferry':
-							model = '实时监控'
+					switch (arr[2]) {
+						case 'menuManagement':
+							model = '菜单管理'
 							break
-						case 'area':
-							model = '区域管理'
-							break
-						default:
+						case 'userManagement':
 							model = '用户管理'
+							break
+						case 'noticeManagement':
+							model = '公告管理'
+							break
+						case 'deptManagement':
+							model = '部门管理'
+							break
+						case 'logManagement':
+							model = '日志管理'
+							break
+						case 'roleManagement':
+							model = '角色管理'
+							break
 					}
+					console.log(arr,title,model,'123')
 					switch (
 						method // （1：查看 2：创建 3：修改 4：删除）
 					) {
