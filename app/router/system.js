@@ -54,5 +54,7 @@ module.exports = (app) => {
 
 	// log 
 	router.resources('operList','/api/logManagement/operList',jwt,controller.system.operlog)
+	router.resources('delOperlog','/api/logManagement/operlog',jwt,controller.system.operlog)
 	router.resources('loginList','/api/logManagement/loginList',jwt,controller.system.logininfor)
+	router.resources('dellogininfo','/api/logManagement/logininfor',jwt,controller.system.logininfor)
 };

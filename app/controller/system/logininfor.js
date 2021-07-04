@@ -10,6 +10,13 @@ class LogininforController extends Controller {
 		// global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone
 	}
+	async destroy(){
+		const { ctx, app } = this;
+		const id = this.ctx.params.id;
+		const respone = await ctx.service.system.dellogininfo(id);
+        global.log.jsonResult = JSON.stringify(respone);
+		ctx.body = respone;
+	}
 }
 
 module.exports = LogininforController

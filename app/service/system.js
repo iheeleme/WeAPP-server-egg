@@ -88,6 +88,54 @@ class SystemService extends Service {
 			totalCount: result.count
 		}
 	}
+	async delOperlog(id){
+		let ids = id.split(',')
+		let result
+		if (id) {
+			result = await this.ctx.model.SysOperLog.destroy({
+				where: {
+					operId: ids
+				}
+			})
+		} else {
+			result = false
+		}
+		if (result) {
+			return {
+				code: 200,
+				msg: 'success'
+			}
+		} else {
+			return {
+				code: 300,
+				msg: 'error'
+			}
+		}
+	}
+	async dellogininfo(id){
+		let ids = id.split(',')
+		let result
+		if (id) {
+			result = await this.ctx.model.SysLogininfor.destroy({
+				where: {
+					infoId: ids
+				}
+			})
+		} else {
+			result = false
+		}
+		if (result) {
+			return {
+				code: 200,
+				msg: 'success'
+			}
+		} else {
+			return {
+				code: 300,
+				msg: 'error'
+			}
+		}
+	}
 
 	/************ 日志end **************/
 
