@@ -3,7 +3,11 @@ module.exports = (app) => {
 	const jwt = app.middleware.auth(app.config.jwt);
 
 	router.resources('getTree', '/api/menuManagement/getTree',jwt, controller.system.role);
+
+	// role
+	router.resources('editDataScope', '/api/roleManagement/dataScope',jwt, controller.system.role);
 	router.resources('getList', '/api/roleManagement/getList',jwt, controller.system.role);
+	router.resources('getRoleData', '/api/roleManagement/role',jwt, controller.system.role);
 	// router.post("/roleManagement/getList", jwt, controller.system.roleList);
 	// router.post("/menuManagement/getTree", jwt, controller.system.role);
 

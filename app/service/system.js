@@ -88,7 +88,7 @@ class SystemService extends Service {
 			totalCount: result.count
 		}
 	}
-	async delOperlog(id){
+	async delOperlog(id) {
 		let ids = id.split(',')
 		let result
 		if (id) {
@@ -112,7 +112,7 @@ class SystemService extends Service {
 			}
 		}
 	}
-	async dellogininfo(id){
+	async dellogininfo(id) {
 		let ids = id.split(',')
 		let result
 		if (id) {
@@ -334,6 +334,39 @@ class SystemService extends Service {
 				code: 200,
 				msg: 'success',
 				data: await this.ctx.model.Role.findAll()
+			}
+		}
+	}
+	async editDataScope(data) {
+		if (data.roleKey!='admin') {
+			this.ctx.model.Role.update(data, {
+				where: {
+					roleId: data.roleId
+				}
+			})
+			return {
+				code: 200,
+				msg: 'success'
+			}
+		}else{
+			return {
+				code: 300,
+				msg: '超级管理员不允许修改'
+			}
+		}
+	}
+
+	async getRoleData(id) {
+		if (id) {
+			const result = this.ctx.model.Role.findAll({
+				where: {
+					roleId: id
+				}
+			})
+			return {
+				code: 200,
+				msg: 'success',
+				data: result
 			}
 		}
 	}
