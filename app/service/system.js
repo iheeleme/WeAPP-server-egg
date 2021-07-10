@@ -373,6 +373,22 @@ class SystemService extends Service {
 
 	/************  角色end ***************/
 
+
+
+	/************  岗位start ***************/
+
+	async postgetList(query) {
+		const data = await this.ctx.model.SysPost.findAll()
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+
+	/************  岗位end ***************/
+
+
 	/************  部门start ***************/
 	// 部门列表
 	async deptList(query) {

@@ -61,4 +61,9 @@ module.exports = (app) => {
 	router.resources('delOperlog','/api/logManagement/operlog',jwt,controller.system.operlog)
 	router.resources('loginList','/api/logManagement/loginList',jwt,controller.system.logininfor)
 	router.resources('dellogininfo','/api/logManagement/logininfor',jwt,controller.system.logininfor)
+
+
+	// post 
+	router.resources('postList','/api/postManagement/getList',jwt,controller.system.post)
+
 };

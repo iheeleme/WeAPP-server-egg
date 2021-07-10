@@ -10,6 +10,7 @@ import ExportSystemLogininfor = require('../../../app/controller/system/logininf
 import ExportSystemMenu = require('../../../app/controller/system/menu');
 import ExportSystemNotice = require('../../../app/controller/system/notice');
 import ExportSystemOperlog = require('../../../app/controller/system/operlog');
+import ExportSystemPost = require('../../../app/controller/system/post');
 import ExportSystemRole = require('../../../app/controller/system/role');
 import ExportSystemUser = require('../../../app/controller/system/user');
 
@@ -23,6 +24,7 @@ declare module 'egg' {
       menu: ExportSystemMenu;
       notice: ExportSystemNotice;
       operlog: ExportSystemOperlog;
+      post: ExportSystemPost;
       role: ExportSystemRole;
       user: ExportSystemUser;
     }

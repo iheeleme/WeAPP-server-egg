@@ -10,6 +10,7 @@ import ExportSysDictData = require('../../../app/model/sys_dict_data');
 import ExportSysDictType = require('../../../app/model/sys_dict_type');
 import ExportSysLogininfor = require('../../../app/model/sys_logininfor');
 import ExportSysOperLog = require('../../../app/model/sys_oper_log');
+import ExportSysPost = require('../../../app/model/sys_post');
 import ExportUser = require('../../../app/model/user');
 
 declare module 'egg' {
@@ -22,6 +23,7 @@ declare module 'egg' {
     SysDictType: ReturnType<typeof ExportSysDictType>;
     SysLogininfor: ReturnType<typeof ExportSysLogininfor>;
     SysOperLog: ReturnType<typeof ExportSysOperLog>;
+    SysPost: ReturnType<typeof ExportSysPost>;
     User: ReturnType<typeof ExportUser>;
   }
 }
