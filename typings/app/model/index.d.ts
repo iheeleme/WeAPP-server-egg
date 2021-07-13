@@ -6,6 +6,7 @@ import ExportDept = require('../../../app/model/dept');
 import ExportMenu = require('../../../app/model/menu');
 import ExportNotice = require('../../../app/model/notice');
 import ExportRole = require('../../../app/model/role');
+import ExportSysConfig = require('../../../app/model/sys_config');
 import ExportSysDictData = require('../../../app/model/sys_dict_data');
 import ExportSysDictType = require('../../../app/model/sys_dict_type');
 import ExportSysLogininfor = require('../../../app/model/sys_logininfor');
@@ -19,6 +20,7 @@ declare module 'egg' {
     Menu: ReturnType<typeof ExportMenu>;
     Notice: ReturnType<typeof ExportNotice>;
     Role: ReturnType<typeof ExportRole>;
+    SysConfig: ReturnType<typeof ExportSysConfig>;
     SysDictData: ReturnType<typeof ExportSysDictData>;
     SysDictType: ReturnType<typeof ExportSysDictType>;
     SysLogininfor: ReturnType<typeof ExportSysLogininfor>;

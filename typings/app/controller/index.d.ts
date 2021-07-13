@@ -4,6 +4,7 @@
 import 'egg';
 import ExportHome = require('../../../app/controller/home');
 import ExportSystem = require('../../../app/controller/system');
+import ExportSystemConfig = require('../../../app/controller/system/config');
 import ExportSystemDept = require('../../../app/controller/system/dept');
 import ExportSystemDict = require('../../../app/controller/system/dict');
 import ExportSystemLogininfor = require('../../../app/controller/system/logininfor');
@@ -18,6 +19,7 @@ declare module 'egg' {
   interface IController {
     home: ExportHome;
     system: ExportSystem & {
+      config: ExportSystemConfig;
       dept: ExportSystemDept;
       dict: ExportSystemDict;
       logininfor: ExportSystemLogininfor;

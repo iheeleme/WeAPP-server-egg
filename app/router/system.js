@@ -32,4 +32,8 @@ module.exports = (app) => {
 	// post 
 	router.resources('postManagement','/api/postManagement',jwt,controller.system.post)
 
+	// config
+	router.resources('configManagement','/api/configManagement',jwt,controller.system.config)
+
+
 };

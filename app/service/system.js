@@ -442,6 +442,50 @@ class SystemService extends Service {
 
 	/************  岗位end ***************/
 
+	/************  配置end ***************/
+	async configList(){
+		const data = await this.ctx.model.SysConfig.findAll()
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	async configUpdate(query){
+		const data = await this.ctx.model.SysConfig.update(query,{
+			where:{
+				configId:query.configId
+			}
+		})
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	async configCreate(query){
+		const data = await this.ctx.model.SysConfig.create(query)
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	async configDelete(query){
+		let ids = query.split(',')
+		const data = await this.ctx.model.SysConfig.destroy({
+			where:{
+				configId:ids
+			}
+		})
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	/************  配置end ***************/
+
 
 	/************  部门start ***************/
 	// 部门列表
