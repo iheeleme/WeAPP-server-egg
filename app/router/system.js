@@ -24,7 +24,7 @@ module.exports = (app) => {
 	router.resources('deptManagement', '/api/deptManagement',jwt, controller.system.dept);
 
 	// dict
-	router.resources('dictType','/api/system/dict/type',jwt,controller.system.dict)
+	router.resources('dictType','/api/dictManagement/type',jwt,controller.system.dict)
 
 	// log 
 	router.resources('logManagement','/api/logManagement',jwt,controller.system.operlog)

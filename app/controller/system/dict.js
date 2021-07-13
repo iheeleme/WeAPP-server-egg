@@ -9,6 +9,12 @@ class DictController extends Controller {
     const respone = await ctx.service.system.getDicts(type);
     ctx.body = respone;
   }
+  async index() {
+    const { ctx, app } = this;
+    const type = this.ctx.params.id;
+    const respone = await ctx.service.system.dictList();
+    ctx.body = respone;
+  }
 }
 
 module.exports = DictController;

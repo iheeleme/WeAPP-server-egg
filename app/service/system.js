@@ -152,6 +152,16 @@ class SystemService extends Service {
 			data: result
 		}
 	}
+	async dictList() {
+		const result = await this.ctx.model.SysDictData.findAll()
+		console.log(rows)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
 	/************ 字典end **************/
 
 	/************  公告start ***************/
@@ -182,7 +192,7 @@ class SystemService extends Service {
 		}
 	}
 
-	async noticeDoAdd(query){
+	async noticeDoAdd(query) {
 		let result = await this.ctx.model.Notice.create(query)
 		if (result) {
 			return {
@@ -206,7 +216,7 @@ class SystemService extends Service {
 					noticeId: query.noticeId
 				}
 			})
-		} 
+		}
 		if (result) {
 			return {
 				code: 200,
@@ -351,7 +361,7 @@ class SystemService extends Service {
 		}
 	}
 	async editDataScope(data) {
-		if (data.roleKey!='admin') {
+		if (data.roleKey != 'admin') {
 			this.ctx.model.Role.update(data, {
 				where: {
 					roleId: data.roleId
@@ -361,7 +371,7 @@ class SystemService extends Service {
 				code: 200,
 				msg: 'success'
 			}
-		}else{
+		} else {
 			return {
 				code: 300,
 				msg: '超级管理员不允许修改'
@@ -386,8 +396,6 @@ class SystemService extends Service {
 
 	/************  角色end ***************/
 
-
-
 	/************  岗位start ***************/
 
 	async postgetList(query) {
@@ -399,9 +407,9 @@ class SystemService extends Service {
 		}
 	}
 	async postUpdate(query) {
-		const data = await this.ctx.model.SysPost.update(query,{
-			where:{
-				postId:query.postId
+		const data = await this.ctx.model.SysPost.update(query, {
+			where: {
+				postId: query.postId
 			}
 		})
 		return {
@@ -443,7 +451,7 @@ class SystemService extends Service {
 	/************  岗位end ***************/
 
 	/************  配置end ***************/
-	async configList(){
+	async configList() {
 		const data = await this.ctx.model.SysConfig.findAll()
 		return {
 			code: 200,
@@ -451,10 +459,10 @@ class SystemService extends Service {
 			data: data
 		}
 	}
-	async configUpdate(query){
-		const data = await this.ctx.model.SysConfig.update(query,{
-			where:{
-				configId:query.configId
+	async configUpdate(query) {
+		const data = await this.ctx.model.SysConfig.update(query, {
+			where: {
+				configId: query.configId
 			}
 		})
 		return {
@@ -463,7 +471,7 @@ class SystemService extends Service {
 			data: data
 		}
 	}
-	async configCreate(query){
+	async configCreate(query) {
 		const data = await this.ctx.model.SysConfig.create(query)
 		return {
 			code: 200,
@@ -471,11 +479,11 @@ class SystemService extends Service {
 			data: data
 		}
 	}
-	async configDelete(query){
+	async configDelete(query) {
 		let ids = query.split(',')
 		const data = await this.ctx.model.SysConfig.destroy({
-			where:{
-				configId:ids
+			where: {
+				configId: ids
 			}
 		})
 		return {
@@ -485,7 +493,6 @@ class SystemService extends Service {
 		}
 	}
 	/************  配置end ***************/
-
 
 	/************  部门start ***************/
 	// 部门列表
