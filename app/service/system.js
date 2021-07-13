@@ -182,6 +182,21 @@ class SystemService extends Service {
 		}
 	}
 
+	async noticeDoAdd(query){
+		let result = await this.ctx.model.Notice.create(query)
+		if (result) {
+			return {
+				code: 200,
+				msg: 'success'
+			}
+		} else {
+			return {
+				code: 300,
+				msg: 'error'
+			}
+		}
+	}
+
 	// 公告编辑
 	async noticeDoEdit(query) {
 		let result
@@ -191,9 +206,7 @@ class SystemService extends Service {
 					noticeId: query.noticeId
 				}
 			})
-		} else {
-			result = await this.ctx.model.Notice.create(query)
-		}
+		} 
 		if (result) {
 			return {
 				code: 200,
@@ -383,6 +396,47 @@ class SystemService extends Service {
 			code: 200,
 			msg: 'success',
 			data: data
+		}
+	}
+	async postUpdate(query) {
+		const data = await this.ctx.model.SysPost.update(query,{
+			where:{
+				postId:query.postId
+			}
+		})
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	async postCreate(query) {
+		const data = await this.ctx.model.SysPost.create(query)
+		return {
+			code: 200,
+			msg: 'success',
+			data: data
+		}
+	}
+	async postDelete(query) {
+		let ids = query.split(',')
+		const data = await this.ctx.model.SysPost.destroy({
+			where: {
+				postId: ids
+			}
+		})
+		if (data) {
+			return {
+				code: 200,
+				msg: 'success'
+				// data: data,
+			}
+		} else {
+			return {
+				code: 301,
+				msg: 'error'
+				// data: data,
+			}
 		}
 	}
 

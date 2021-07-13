@@ -30,7 +30,14 @@ class NoticeController extends Controller {
         global.log.jsonResult = JSON.stringify(respone);
 		ctx.body = respone;
 	}
-
+	// 公告添加
+	async create() {
+		const { ctx, app } = this;
+		const query = ctx.request.body;
+		const respone = await ctx.service.system.noticeDoAdd(query);
+        global.log.jsonResult = JSON.stringify(respone);
+		ctx.body = respone;
+	}
 	/************  公告end ***************/
 }
 
