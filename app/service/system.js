@@ -152,9 +152,32 @@ class SystemService extends Service {
 			data: result
 		}
 	}
+
+	async getDict(id) {
+		const result = await this.ctx.model.SysDictType.findByPk(id)
+		// console.log(rows)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
 	async dictList() {
-		const result = await this.ctx.model.SysDictData.findAll()
-		console.log(rows)
+		const result = await this.ctx.model.SysDictType.findAll()
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+	async dictDataList(data) {
+		const result = await this.ctx.model.SysDictData.findAll({
+			where:{
+				dictType:data.dictType
+			}
+		})
 		// result = JSON.parse(JSON.stringify(rows));
 		return {
 			code: 200,

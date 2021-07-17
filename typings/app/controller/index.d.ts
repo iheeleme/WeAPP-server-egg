@@ -7,6 +7,7 @@ import ExportSystem = require('../../../app/controller/system');
 import ExportSystemConfig = require('../../../app/controller/system/config');
 import ExportSystemDept = require('../../../app/controller/system/dept');
 import ExportSystemDict = require('../../../app/controller/system/dict');
+import ExportSystemDictData = require('../../../app/controller/system/dictData');
 import ExportSystemLogininfor = require('../../../app/controller/system/logininfor');
 import ExportSystemMenu = require('../../../app/controller/system/menu');
 import ExportSystemNotice = require('../../../app/controller/system/notice');
@@ -22,6 +23,7 @@ declare module 'egg' {
       config: ExportSystemConfig;
       dept: ExportSystemDept;
       dict: ExportSystemDict;
+      dictData: ExportSystemDictData;
       logininfor: ExportSystemLogininfor;
       menu: ExportSystemMenu;
       notice: ExportSystemNotice;
