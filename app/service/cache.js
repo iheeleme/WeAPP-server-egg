@@ -21,6 +21,14 @@ class CacheService extends Service {
 			return JSON.parse(data);
 		}
 	}
+
+	async del(key) {
+		if (this.app.redis) {
+			var data = await this.app.redis.del(key);
+			if (!data) return;
+			return JSON.parse(data);
+		}
+	}
 }
 
 module.exports = CacheService;

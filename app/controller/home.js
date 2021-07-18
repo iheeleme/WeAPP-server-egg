@@ -7,6 +7,16 @@ class HomeController extends Controller {
 		const { ctx } = this
 		ctx.body = 'hi, egg'
 	}
+	async logout() {
+		const { ctx } = this
+		// console.log(ctx.tokenId)
+		const result =this.ctx.service.cache.del(ctx.tokenId)
+		
+		ctx.body = {
+			code:200,
+			msg:'suucess'
+		}
+	}
 	async login() {
 		const { ctx, app } = this
 

@@ -14,6 +14,7 @@ module.exports = (options) => {
 					return;
 				} else {
 					ctx.authUser = t;
+					ctx.tokenId=token_id
 					await next();
 				}
 			} catch (error) {
