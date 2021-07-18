@@ -153,6 +153,65 @@ class SystemService extends Service {
 		}
 	}
 
+
+	async dictTypeDestroy(id) {
+		const result = await this.ctx.model.SysDictType.destroy({
+			where:{
+				dictId:id
+			}
+		})
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
+	async dictTypeUpdate(data) {
+		const result =await this.ctx.model.SysDictType.update(data,{
+			where:{
+				dictId:data.dictId
+			}
+		})
+		// console.log(rows)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
+	async dictDataDestroy(id) {
+		const result = await this.ctx.model.SysDictData.destroy({
+			where:{
+				dictCode:id
+			}
+		})
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
+	async dictDataUpdate(data) {
+		const result =await this.ctx.model.SysDictData.update(data,{
+			where:{
+				dictCode:data.dictCode
+			}
+		})
+		// console.log(rows)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
 	async getDict(id) {
 		const result = await this.ctx.model.SysDictType.findByPk(id)
 		// console.log(rows)
