@@ -197,6 +197,26 @@ class SystemService extends Service {
 		}
 	}
 
+	async dictDataCreate(data) {
+		const result = await this.ctx.model.SysDictData.create(data)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
+	async dictTypeCreate(data) {
+		const result = await this.ctx.model.SysDictType.create(data)
+		// result = JSON.parse(JSON.stringify(rows));
+		return {
+			code: 200,
+			msg: 'success',
+			data: result
+		}
+	}
+
 	async dictDataUpdate(data) {
 		const result =await this.ctx.model.SysDictData.update(data,{
 			where:{
